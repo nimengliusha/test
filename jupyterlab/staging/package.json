@@ -107,7 +107,7 @@
     "sanitize-html": "~1.14.3",
     "semver": "^5.5.0",
     "url-parse": "~1.4.3",
-    "xterm": "~3.3.0"
+    "xterm": "~4.2.0"
   },
   "devDependencies": {
     "@jupyterlab/buildutils": "^0.9.4",
