@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Data Science Workshop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script id="jupyter-config-data" type="application/json">{
+    {% for key, value in page_config.items() -%}
+    "{{ key }}": "{{ value }}",
+    {% endfor -%}
+    "baseUrl": "{{ base_url }}",
+    "wsUrl": "{{ ws_url }}"
+  }</script>
+  <meta name='author' content='PAI-Team'>
+  {% block favicon %}
+  <link rel="icon" type="image/x-icon" href="{{ base_url }}static/base/images/favicon.ico" class="idle favicon">
+  <link rel="" type="image/x-icon" href="{{ base_url }}static/base/images/favicon-busy-1.ico" class="busy favicon">
+  {% endblock %}
+
+</head>
+<body>
+
+<script type="text/javascript">
+  /* Remove token from URL. */
+  {% if env_url %}
+  const envUrl = '{{env_url}}';
+  if (envUrl) {
+    const oneboxLoader = document.createElement('script');
+    oneboxLoader.src = '//g.alicdn.com/onebox/static/bear/1.2.0/loader-min.js';
+    document.head.appendChild(oneboxLoader);
+    oneboxLoader.onload = function() {
+      const script = document.createElement('script');
+      script.src = envUrl + `?t=${(new Date()).getTime()}`;
+      document.head.appendChild(script)
+    }
+  }
+  {% endif %}
+
+  (function () {
+    var location = window.location;
+    var search = location.search;
+    // If there is no query string, bail.
+    if (search.length <= 1) {
+      return;
+    }
+
+    // Rebuild the query string without the `token`.
+    var query = '?' + search.slice(1).split('&')
+      .filter(function (param) { return param.split('=')[0] !== 'token'; })
+      .join('&');
+
+    // Rebuild the URL with the new query string.
+    var url = location.origin + location.pathname +
+      (query !== '?' ? query : '') + location.hash;
+
+    window.history.replaceState({ }, '', url);
+  })();
+</script>
+</html>
